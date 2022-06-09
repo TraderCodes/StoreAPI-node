@@ -10,7 +10,7 @@ const res = require('express/lib/response');
 const connectDB = require('./db/connect');
 const productsRouter = require('./routes/products');
 app.use(express.json());
-1
+1;
 
 // routes
 app.get('/', (req, res) => {
@@ -25,8 +25,10 @@ const start = async () => {
   try {
     await connectDB(process.env.MONGO_URI);
     app.listen(3000, console.log('server live'));
+
   } catch (error) {
     console.log('error');
+
   }
 };
 start();
