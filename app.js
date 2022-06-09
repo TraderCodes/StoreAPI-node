@@ -10,7 +10,7 @@ const res = require('express/lib/response');
 const connectDB = require('./db/connect');
 const productsRouter = require('./routes/products');
 app.use(express.json());
-
+1
 
 // routes
 app.get('/', (req, res) => {
