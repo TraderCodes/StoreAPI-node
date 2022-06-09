@@ -11,6 +11,7 @@ const connectDB = require('./db/connect');
 const productsRouter = require('./routes/products');
 app.use(express.json());
 
+
 // routes
 app.get('/', (req, res) => {
   res.send('<h1>storeAPI</h1><a href="/api/v1/products">products routes</a>');
