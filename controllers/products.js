@@ -5,7 +5,7 @@ const getAllProductsStatic = async (req, res) => {
   res.status(200).json({ products: products, nbHits: products.length });
 };
 const getAllProducts = async (req, res) => {
-  const { featured, company, name } = req.query;
+  const { featured, company, name, sort } = req.query;
   const queryObject = {};
   // first we check if there is featured in the link which is the query
   if (featured) {
@@ -17,7 +17,17 @@ const getAllProducts = async (req, res) => {
   if (name) {
     queryObject.name = { $regex: name, $options: 'i' };
   }
-  const products = await Product.find(queryObject);
+  // use await after sorting
+  let result = Product.find(queryObject);
+  if (sort) {
+    // you need space in between each sort value to work
+    const sortList = sort.split(',').join(' ');
+    result = result.sort(sortList);
+  } else {
+    // sort base off datecreated
+    result = result.sort('createdAt');
+  }
+  const products = await result;
   res.status(200).json({ products, nbHits: products.length });
 };
 
