@@ -5,7 +5,8 @@ const getAllProductsStatic = async (req, res) => {
   res.status(200).json({ products: products, nbHits: products.length });
 };
 const getAllProducts = async (req, res) => {
-  const { featured, company, name, sort } = req.query;
+  // can set up whatever name you want
+  const { featured, company, name, sort, fields } = req.query;
   const queryObject = {};
   // first we check if there is featured in the link which is the query
   if (featured) {
@@ -27,6 +28,13 @@ const getAllProducts = async (req, res) => {
     // sort base off datecreated
     result = result.sort('createdAt');
   }
+
+  // pick a selected item
+  if (fields) {
+    const fieldsList = fields.split(',').join(' ');
+    result = result.select(fieldsList);
+  }
+
   const products = await result;
   res.status(200).json({ products, nbHits: products.length });
 };
